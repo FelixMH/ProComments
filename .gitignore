@@ -1,0 +1,10 @@
+# Carpetas
+
+.idea
+.git
+.node_modules
+
+# Ejecutables
+
+ProComments
+ProComments.exe
