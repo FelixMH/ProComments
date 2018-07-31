@@ -1,10 +1,17 @@
+##
 # Carpetas
-
+#
 .idea
 .git
 .node_modules
 
-# Ejecutables
+##
+# Configuracion
+#
+config.json
 
+##
+# Ejecutables
+#
 ProComments
 ProComments.exe
