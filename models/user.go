@@ -4,11 +4,11 @@ import "github.com/jinzhu/gorm"
 
 type User struct {
 	gorm.Model
-	UserName        string `json:"username" gorm:"not null;unique"`
-	Email           string `json:"email" gorm:"not null;unique"`
-	FullName        string `json:"fullName" gorm:"not null;unique"`
-	Password        string `json:"password, omitempty" gorm:"not null;type:varchar(256)"`
-	ConfirmPassword string `json:"confirmPassword, omitempty" gorm:"-"`
-	Picture         string `json:"picture"`
-	Comments[]Comment `json:"comments, omitempty"`
+	UserName        string    `json:"username" gorm:"not null;unique"`
+	Email           string    `json:"email" gorm:"not null;unique"`
+	FullName        string    `json:"fullName" gorm:"not null;unique"`
+	Password        string    `json:"password, omitempty" gorm:"not null;type:varchar(256)"`
+	ConfirmPassword string    `json:"confirmPassword, omitempty" gorm:"-"`
+	Picture         string    `json:"picture"`
+	Comments        []Comment `json:"comments, omitempty"`
 }
