@@ -10,7 +10,7 @@ import (
 func SetUserRouter(router *mux.Router) {
 	prefix := "/api/users"
 	subRouter := mux.NewRouter().PathPrefix(prefix).Subrouter().StrictSlash(true)
-	subRouter.HandleFunc("/", controllers.UserCreate).Methods("POST")
+	subRouter.HandleFunc("/", controllers.UserCreate).Methods("PUT")
 
 	router.PathPrefix(prefix).Handler(
 		negroni.New(
