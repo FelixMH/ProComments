@@ -18,27 +18,25 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	user := models.User{}
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Fprintf(w, "Error: %s\n", err)
 		return
 	}
 
 	db := configuration.GetConnection()
-	if err != nil {
-		log.Fatal("Error de conexión")
-	}
 	defer db.Close()
 
 	c := sha256.Sum256([]byte(user.Password))
 	pwd := fmt.Sprintf("%x", c)
 
 	db.Where("email = ? and password = ?", user.Email, pwd).First(&user)
+	log.Println(user.ID, pwd)
 	if user.ID > 0 {
 		user.Password = ""
 		token := commons.GenerateJWT(user)
 
 		j, err := json.Marshal(models.Token{Token: token})
 		if err != nil {
-			log.Fatal("Error con el token")
+			log.Fatalf("Error al convertir el token a json: %s", err)
 		}
 		w.WriteHeader(http.StatusOK)
 		w.Write(j)
