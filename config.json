@@ -1,6 +1,6 @@
 {
   "server": "localhost",
-  "port": "8080",
+  "port": "3306",
   "user": "developer",
   "password": "secret",
   "database": "ProComments"
