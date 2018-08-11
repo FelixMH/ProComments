@@ -14,9 +14,9 @@
 */
 
 {
+  "server": "localhost",
   "port": "3306",
-  "user": "admin",
-  "password": "Holagabster",
+  "user": "developer",
+  "password": "secret",
   "database": "ProComments"
 }
-"server": "localhost",
