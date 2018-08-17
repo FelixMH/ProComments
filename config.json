@@ -1,18 +1,3 @@
-/*
-**
-  Archivo de configuracion para la conexión a la base de datos mediante ProComments API.
-
-
-  server => se modifica por la dirección del servidor en la que se encuentra la base de datos, por defecto localhost.
-  port => por el puerto que está en su servidor, por defecto los SGBD tienen el que hemos configurado aquí.
-  user => su user de la base de datos, puede ser root, nosotros colocamos developer.
-  password => nosotros dejamos por defecto secret pero lo ideal es que se coloque una mas segura.
-  database => el nombre de la base de datos que tiene las configuraciones anteriores, en nuestro caso ProComments , usted puede crear su propia BD.
-
-  NOTA: se pueden añadir mas clases de configuraciones como por ejemplo, la codificación, parseTime, etc.
-**
-*/
-
 {
   "server": "localhost",
   "port": "3306",
