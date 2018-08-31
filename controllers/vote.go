@@ -21,7 +21,7 @@ func VoteRegister(w http.ResponseWriter, r *http.Request) {
 	user, _ = r.Context().Value("user").(models.User)
 	err := json.NewDecoder(r.Body).Decode(&vote)
 	if err != nil {
-		m.Message = fmt.Sprintf("Error al leer el usuario a registrar: %s", err)
+		m.Message = fmt.Sprintf("Error al leer el voto a registrar: %s", err)
 		m.Code = http.StatusBadRequest
 		commons.DisplayMessage(w, m)
 		return
@@ -37,7 +37,7 @@ func VoteRegister(w http.ResponseWriter, r *http.Request) {
 	// si no existe voto
 	if currentVote.ID == 0 {
 		db.Create(&vote)
-		err := updateCommentVotes(vote.CommentID, vote.Value)
+		err := updateCommentVotes(vote.CommentID, vote.Value, false)
 		if err != nil {
 			m.Message = err.Error()
 			m.Code = http.StatusBadRequest
@@ -51,7 +51,7 @@ func VoteRegister(w http.ResponseWriter, r *http.Request) {
 	} else if currentVote.Value != vote.Value {
 		currentVote.Value = vote.Value
 		db.Save(&currentVote)
-		err := updateCommentVotes(vote.CommentID, vote.Value)
+		err := updateCommentVotes(vote.CommentID, vote.Value, true)
 		if err != nil {
 			m.Message = err.Error()
 			m.Code = http.StatusBadRequest
@@ -69,7 +69,9 @@ func VoteRegister(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func updateCommentVotes(commentID uint, vote bool) (err error) {
+// updateCommentVotes: Actualiza la cantidad de votos en la tabla comentarios
+// isUpdate: indica si es un voto para actualizar.
+func updateCommentVotes(commentID uint, vote bool, isUpdate bool) (err error) {
 	comment := models.Comment{}
 
 	db := configuration.GetConnection()
@@ -79,8 +81,14 @@ func updateCommentVotes(commentID uint, vote bool) (err error) {
 	if rows > 0 {
 		if vote {
 			comment.Votes++
+			if isUpdate {
+				comment.Votes++
+			}
 		} else {
 			comment.Votes--
+			if isUpdate {
+				comment.Votes--
+			}
 		}
 		db.Save(&comment)
 	} else {
