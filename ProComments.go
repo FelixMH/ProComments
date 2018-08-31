@@ -2,9 +2,11 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"net/http"
 
+	"github.com/FelixMH/ProComments/commons"
 	"github.com/FelixMH/ProComments/migration"
 	"github.com/FelixMH/ProComments/routes"
 	"github.com/urfave/negroni"
@@ -14,6 +16,7 @@ func main() {
 	var migrate string
 
 	flag.StringVar(&migrate, "migrate", "no", "Generates the migration to the BD")
+	flag.IntVar(&commons.Port, "port", 8080, "Port to web server")
 	flag.Parse()
 	if migrate == "yes" {
 		log.Println("Migration started.....")
@@ -30,10 +33,10 @@ func main() {
 
 	// Inicia el servidor
 	server := &http.Server{
-		Addr:    ":8080",
+		Addr:    fmt.Sprintf(":%d", commons.Port),
 		Handler: n,
 	}
-	log.Println("Iniciado el servidor en http://localhost:8080")
+	log.Printf("Iniciado el servidor en http://localhost:%d", commons.Port)
 	log.Println(server.ListenAndServe())
 	log.Println("Finalizó la ejecución del programa")
 }
