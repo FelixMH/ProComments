@@ -17,13 +17,16 @@
       // var containerData = document.getElementById("containerData");
       var container = document.getElementById("container");
       var api = "http://localhost:9000/api/comments/";
-      fetch(api)
-        .then( (response) => {
-          return response.json();
-        })
-        .then( (msg) => {
-          console.log(msg);
-        })
+
+      ws.onmessage = function(msg) {
+        fetch(api)
+          .then( (response) => {
+            return response.json();
+          })
+          .then( (msg) => {
+            console.log(msg);
+          })
+      }
 
 
 
