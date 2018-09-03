@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>Bienvenido</title>
+  </head>
+  <body>
+    <h1>Comentarios realtime</h1>
+
+    <div class="container" id="container">
+
+    </div>
+
+    <script type="text/babel">
+      var url = "ws://" + window.location.host + "/ws";
+      var ws = new WebSocket(url);
+      // var containerData = document.getElementById("containerData");
+      var container = document-.getElementById("container");
+
+      ws.onmessage = (msg) => {
+        container.innerHTML += "  " + msg.data + " ";
+      }
+
+
+
+    </script>
+  </body>
+</html>
