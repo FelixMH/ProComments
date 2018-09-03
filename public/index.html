@@ -11,14 +11,14 @@
 
     </div>
 
-    <script type="text/babel">
+    <script type="text/javascript">
       var url = "ws://" + window.location.host + "/ws";
       var ws = new WebSocket(url);
       // var containerData = document.getElementById("containerData");
-      var container = document-.getElementById("container");
+      var container = document.getElementById("container");
 
-      ws.onmessage = (msg) => {
-        container.innerHTML += "  " + msg.data + " ";
+      ws.onmessage = function (msg) {
+        container.innerHTML += "<span>" + msg.data + "</span>";
       }
 
 
