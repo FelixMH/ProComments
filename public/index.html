@@ -16,10 +16,14 @@
       var ws = new WebSocket(url);
       // var containerData = document.getElementById("containerData");
       var container = document.getElementById("container");
-
-      ws.onmessage = function (msg) {
-        container.innerHTML += "<span>" + msg.data + "</span>";
-      }
+      var api = "http://localhost:9000/api/comments/";
+      fetch(api)
+        .then( (response) => {
+          return response.json();
+        })
+        .then( (msg) => {
+          console.log(msg);
+        })
 
 
 
